@@ -1,7 +1,9 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-import fragment from './shaders/fragment.glsl';
-import vertex from './shaders/vertex.glsl';
+import imageFragment from './shaders/image-fragment.glsl';
+import imageVertex from './shaders/image-vertex.glsl';
+import postprocessingFragment from './shaders/postprocessing-fragment.glsl';
+import postprocessingVertex from './shaders/postprocessing-vertex.glsl';
 import Scroll from './scroll';
 import imagesLoaded from 'imagesloaded';
 import gsap from 'gsap';
@@ -36,7 +38,10 @@ export default class Sketch {
     // Math.atan (above) returns an angle in radians so we'll convert it to degrees on the next line and assign it to the camera.fov.
     this.camera.fov = this.calculatedFov * (180 / Math.PI); 
 
-    this.renderer = new THREE.WebGLRenderer( { antialias: true, alpha: true } );
+    this.renderer = new THREE.WebGLRenderer({ 
+      // antialias: true, 
+      alpha: true
+    });
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     this.container.appendChild( this.renderer.domElement );
 
@@ -90,25 +95,8 @@ export default class Sketch {
         "tDiffuse": { value: null },
         "scrollSpeed": { value: null },
       },
-      vertexShader: `
-        varying vec2 vUv;
-        void main() {
-          vUv = uv;
-          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-        }
-      `,
-      fragmentShader: `
-        uniform sampler2D tDiffuse;
-        uniform float scrollSpeed;
-        varying vec2 vUv;
-        void main() {
-          vec2 newUv = vUv;
-          float area = smoothstep(0.4, -0.5, vUv.y);
-          newUv.x -= (vUv.x - 0.5)*0.8 * area * scrollSpeed*3.;
-          gl_FragColor = texture2D(tDiffuse, newUv);
-          // gl_FragColor = vec4(newUv.x, 0.0, 0.0, 1.0);
-        }
-      `,
+      vertexShader: postprocessingVertex,
+      fragmentShader: postprocessingFragment,
     }
 
     this.customPass = new ShaderPass(this.myEffect);
@@ -157,8 +145,8 @@ export default class Sketch {
       },
       side: THREE.DoubleSide,
       // wireframe: true,
-      fragmentShader: fragment,
-      vertexShader: vertex,
+      fragmentShader: imageFragment,
+      vertexShader: imageVertex,
     })
 
     this.materials = [];
