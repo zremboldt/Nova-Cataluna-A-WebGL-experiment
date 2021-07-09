@@ -1,13 +1,13 @@
-import img0 from "url:../images/img0.jpg";
-import img1 from "url:../images/img1.jpg";
-import img2 from "url:../images/img2.jpg";
-import img3 from "url:../images/img3.jpg";
-import img4 from "url:../images/img4.jpg";
-import img5 from "url:../images/img5.jpg";
-import img6 from "url:../images/img6.jpg";
-import img7 from "url:../images/img7.jpg";
-import img8 from "url:../images/img8.jpg";
-import img9 from "url:../images/img9.jpg";
+import img0 from "url:../images/img0.png";
+import img1 from "url:../images/img1.png";
+import img2 from "url:../images/img2.png";
+import img3 from "url:../images/img3.png";
+import img4 from "url:../images/img4.png";
+import img5 from "url:../images/img5.png";
+import img6 from "url:../images/img6.png";
+import img7 from "url:../images/img7.png";
+import img8 from "url:../images/img8.png";
+import img9 from "url:../images/img9.png";
 
 const data = [
   {

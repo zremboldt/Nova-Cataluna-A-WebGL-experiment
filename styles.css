@@ -167,6 +167,7 @@ header {
   height: auto;
   border-radius: 20px;
   cursor: pointer;
+  opacity: 0; /* This line hides the html images so that the WebGL copies can take over */
 }
 
 .date {
