@@ -4,7 +4,6 @@ uniform sampler2D uImage;
 uniform float time;
 
 void main() {
-
   vec2 newUv = vUv;
 
   vec4 img = texture2D(uImage, newUv);

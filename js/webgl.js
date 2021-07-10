@@ -11,7 +11,7 @@ import FontFaceObserver from 'fontfaceobserver';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
-import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
+// import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
 // import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
 
 export default class Sketch {
@@ -92,8 +92,8 @@ export default class Sketch {
     let counter = 0.0;
     this.myEffect = {
       uniforms: {
-        "tDiffuse": { value: null },
-        "scrollSpeed": { value: null },
+        tDiffuse: { value: null },
+        scrollSpeed: { value: null },
       },
       vertexShader: postprocessingVertex,
       fragmentShader: postprocessingFragment,
