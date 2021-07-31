@@ -1,6 +1,5 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
-// import imageFragment from './shaders/fisheye-fragment.glsl';
 import imageFragment from './shaders/image-fragment.glsl';
 import imageVertex from './shaders/image-vertex.glsl';
 import postprocessingFragment from './shaders/postprocessing-fragment.glsl';
@@ -12,8 +11,6 @@ import FontFaceObserver from 'fontfaceobserver';
 import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass.js';
 import { ShaderPass } from 'three/examples/jsm/postprocessing/ShaderPass.js';
-// import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass.js';
-// import { GlitchPass } from 'three/examples/jsm/postprocessing/GlitchPass.js';
 
 export default class Sketch {
   constructor(options) {
@@ -26,8 +23,8 @@ export default class Sketch {
 
     this.width = this.container.offsetWidth;
     this.height = this.container.offsetHeight;
-    
-    this.camera = new THREE.PerspectiveCamera( 70, this.width / this.height, 100, 2000 );
+
+    this.camera = new THREE.PerspectiveCamera(70, this.width / this.height, 100, 2000);
     this.camera.position.z = this.cameraPosZ;
 
     // ==========================
@@ -35,18 +32,18 @@ export default class Sketch {
     // ==========================
     // Here we're finding the correct camera field-of-view in order to make a 100x100 square on our canvas
     // appear to be the same size as a 100px x 100px div in our HTML.
-    this.calculatedFov = 2 * Math.atan((this.height / 2) / this.cameraPosZ); 
+    this.calculatedFov = 2 * Math.atan((this.height / 2) / this.cameraPosZ);
     // Math.atan (above) returns an angle in radians so we'll convert it to degrees on the next line and assign it to the camera.fov.
-    this.camera.fov = this.calculatedFov * (180 / Math.PI); 
+    this.camera.fov = this.calculatedFov * (180 / Math.PI);
 
-    this.renderer = new THREE.WebGLRenderer({ 
+    this.renderer = new THREE.WebGLRenderer({
       // antialias: true, 
       alpha: true
     });
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    this.container.appendChild( this.renderer.domElement );
+    this.container.appendChild(this.renderer.domElement);
 
-    this.controls = new OrbitControls( this.camera, this.renderer.domElement );
+    this.controls = new OrbitControls(this.camera, this.renderer.domElement);
 
     this.images = [...document.querySelectorAll('.article-image')];
 
@@ -109,19 +106,19 @@ export default class Sketch {
   mouseMovement() {
     window.addEventListener('mousemove', (event) => {
       this.mouse.x = (event.clientX / this.width) * 2 - 1;
-	    this.mouse.y = - (event.clientY / this.height) * 2 + 1;
+      this.mouse.y = - (event.clientY / this.height) * 2 + 1;
 
       // update the picking ray with the camera and mouse position
-      this.raycaster.setFromCamera( this.mouse, this.camera );
+      this.raycaster.setFromCamera(this.mouse, this.camera);
 
       // calculate objects intersecting the picking ray
-      const intersects = this.raycaster.intersectObjects( this.scene.children );
+      const intersects = this.raycaster.intersectObjects(this.scene.children);
 
       if (intersects.length > 0) {
         let obj = intersects[0].object;
         obj.material.uniforms.hover.value = intersects[0].uv;
       }
-    }, false );
+    }, false);
   }
 
   setupResize() {
@@ -131,8 +128,8 @@ export default class Sketch {
   resize() {
     this.width = this.container.offsetWidth;
     this.height = this.container.offsetHeight;
-    this.renderer.setSize( this.width, this.height );
-    this.camera.aspect = this.width/this.height;
+    this.renderer.setSize(this.width, this.height);
+    this.camera.aspect = this.width / this.height;
     this.camera.updateProjectionMatrix();
   }
 
@@ -155,7 +152,7 @@ export default class Sketch {
     this.imageStore = this.images.map(img => {
       let bounds = img.getBoundingClientRect();
 
-      let geometry = new THREE.PlaneBufferGeometry( bounds.width, bounds.height, 40, 40 );
+      let geometry = new THREE.PlaneBufferGeometry(bounds.width, bounds.height, 40, 40);
       let texture = new THREE.Texture(img);
       texture.needsUpdate = true;
 
@@ -194,8 +191,8 @@ export default class Sketch {
 
   setPosition() {
     this.imageStore.forEach(obj => {
-      obj.mesh.position.y = this.currentScroll - obj.top + this.height/2 - obj.height/2;
-      obj.mesh.position.x = obj.left - this.width/2 + obj.width/2;
+      obj.mesh.position.y = this.currentScroll - obj.top + this.height / 2 - obj.height / 2;
+      obj.mesh.position.x = obj.left - this.width / 2 + obj.width / 2;
     })
   }
 
@@ -206,7 +203,7 @@ export default class Sketch {
     this.currentScroll = this.scroll.scrollToRender;
     this.setPosition();
     this.customPass.uniforms.scrollSpeed.value = this.scroll.speedTarget;
-    
+
     // this.material.uniforms.time.value = this.time;
 
     this.materials.forEach(material => {
