@@ -5,7 +5,7 @@ To run the project:
 
 <video src="webgl-experiments_7-10-2021_03.mp4" width="1200px">
   
-<video width="1000" controls>
+<video>
   <source src="webgl-experiments_7-10-2021_03.mp4" type="video/mp4">
 </video>
 
