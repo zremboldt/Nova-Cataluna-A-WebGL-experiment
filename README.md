@@ -3,10 +3,4 @@ To run the project:
 1. `npm i`
 2. `npx parcel index.html`
 
-<video src="webgl-experiments_7-10-2021_03.mp4" width="1200px">
-  
-<video>
-  <source src="webgl-experiments_7-10-2021_03.mp4" type="video/mp4">
-</video>
-
-![](webgl-experiments_7-10-2021_03.mp4)
+https://user-images.githubusercontent.com/19367659/181408359-fd054b45-74f6-461f-9bfd-311914094bc6.mp4
